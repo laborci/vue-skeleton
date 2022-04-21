@@ -2,13 +2,16 @@
 import {ref} from "vue";
 
 const count = ref(0)
-function inc() { count.value++;}
+function increase(e) {
+	console.log(e)
+	count.value++;
+}
 </script>
 
 <template>
 	<div>Click the button to increase the number</div>
-	<div> {{ count }}</div>
-	<button class="button" @click="inc">Increase</button>
+	<div><i class="fas fa-hand-paper"></i> {{ count }}</div>
+	<button class="button" @click="(e)=>increase(e)">Increase</button>
 </template>
 
 <style lang="scss" scoped>

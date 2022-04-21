@@ -2,11 +2,13 @@ import copyDir from "copy-dir";
 import fs from "fs";
 import Path from "path"
 
-export default function fontCopy(root, target) {
+export default function fontCopy(target, root = null) {
 	return {
 		writeBundle() {
-
+			root = root === null ? process.cwd() : root;
 			const packages = JSON.parse(fs.readFileSync(Path.resolve(root, 'package.json')).toString());
+
+			if (typeof packages["dependencies"] === "undefined") return;
 
 			fs.mkdirSync(target, {recursive: true});
 
