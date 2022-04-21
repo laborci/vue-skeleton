@@ -8,9 +8,23 @@ export default class BuildNumber {
 		this.packageJson = packageJson === null ? Path.resolve(process.cwd(), 'package.json') : packageJson;
 	}
 
-	static bump(){return (new BuildNumber()).bump();}
-	static replace(file, pattern = /\?v=.*?"/g, replace = (version) => "?v=" + version + '"'){return (new BuildNumber()).replace(file, pattern, replace);}
-	static write(file){return (new BuildNumber()).write(file);}
+	static bump() {return (new BuildNumber()).bump();}
+	static replace(file, pattern = /\?v=.*?"/g, replace = (version) => "?v=" + version + '"') {return (new BuildNumber()).replace(file, pattern, replace);}
+	static write(file) {return (new BuildNumber()).write(file);}
+	static touch(file) {return (new BuildNumber()).touch(file);}
+
+	touch(file) {
+		return {
+			writeBundle: () => {
+				const time = new Date();
+				try {
+					fs.utimesSync(file, time, time);
+				} catch (err) {
+					fs.closeSync(fs.openSync(file, 'w'));
+				}
+			}
+		}
+	}
 
 	bump() {
 		return {

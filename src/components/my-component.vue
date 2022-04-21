@@ -1,22 +1,24 @@
 <script setup>
+import Counter from "./counter";
 import {ref} from "vue";
 
 const count = ref(0)
-function increase(e) {
-	console.log(e)
+function increase() {
 	count.value++;
 }
 </script>
 
 <template>
-	<div>Click the button to increase the number</div>
-	<div><i class="fas fa-hand-paper"></i> {{ count }}</div>
-	<button class="button" @click="(e)=>increase(e)">Increase</button>
+	<div class="card">
+		<div class="card-content">
+			<div class="content">
+				<div class="has-text-centered">Click the button to increase the number</div>
+				<Counter :count="count"></Counter>
+			</div>
+		</div>
+		<footer class="card-footer">
+			<a class="card-footer-item" @click="increase">Increase</a>
+		</footer>
+	</div>
 </template>
 
-<style lang="scss" scoped>
-div {
-	font-family: "Baloo Da 2", serif;
-	color: red;
-}
-</style>

@@ -30,15 +30,21 @@ export default {
 		commonjs(),
 		typescript({check: false}),
 		json(),
-		scss(production ? {outputStyle: "compressed"} : {}),
+		scss({outputStyle: production ? "compressed" : null}),
 		styles({mode: "emit", url: false}),
 		css({output: "index.css"}),
 		resolve({extensions: [".mjs", ".js", ".json", ".node", ".ts", ".vue"], browser: true}),
-		replace({"process.env.NODE_ENV": JSON.stringify("development")}),
+		replace({
+			"process.env.NODE_ENV": JSON.stringify("development"),
+			"__VUE_OPTIONS_API__": JSON.stringify(false),
+			"__VUE_PROD_DEVTOOLS__": JSON.stringify(!production),
+		}),
 		BuildNumber.bump(),
 		BuildNumber.replace(Path.resolve(cwd, "index.html")),
 		BuildNumber.write(Path.resolve(cwd, "dist/version"), null),
+		BuildNumber.touch(Path.resolve(cwd, "dist/build"), null),
 		production && fontCopy(Path.resolve(cwd, "dist/fonts")),
 		production && terser()
 	]
 }
+
