@@ -15,7 +15,8 @@ function increase(e) {
 </template>
 
 <style lang="scss" scoped>
-div{
-	color:red;
+div {
+	font-family: "Baloo Da 2", serif;
+	color: red;
 }
 </style>

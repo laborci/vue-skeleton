@@ -13,6 +13,11 @@ let control = MyComponent;
 </template>
 
 <style lang="scss">
+@use "@fontsource/baloo-da-2/scss/mixins" as BalooDa2;
+
+@include BalooDa2.fontFace($fontDir: "fonts/baloo-da-2", $weight: 400);
+@include BalooDa2.fontFace($fontDir: "fonts/baloo-da-2", $weight: 800);
+
 @import "@fortawesome/fontawesome-free/scss/variables";
 $fa-font-path: "fonts/fontawesome-free";
 @import "@fortawesome/fontawesome-free/scss/brands";
@@ -25,4 +30,7 @@ $fa-font-path: "fonts/fontawesome-free";
 @import "bulma-prefers-dark/sass/elements/_all";
 @import "bulma-prefers-dark/sass/components/_all";
 @import "bulma-prefers-dark/sass/layout/_all";
+
+
+
 </style>
