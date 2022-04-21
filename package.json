@@ -19,6 +19,7 @@
 		"rollup": "^2.47.0",
 		"rollup-plugin-alias": "^2.2.0",
 		"rollup-plugin-commonjs": "^10.1.0",
+		"rollup-plugin-copy": "^3.4.0",
 		"rollup-plugin-css-only": "^3.1.0",
 		"rollup-plugin-json": "^4.0.0",
 		"rollup-plugin-node-resolve": "^5.2.0",
@@ -30,6 +31,5 @@
 		"rollup-plugin-vue": "^6.0.0",
 		"sass": "1.32.12",
 		"vue": "^3.2.33"
-	},
-	"build-number": 66
+	}
 }

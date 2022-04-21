@@ -28,6 +28,7 @@ $fa-font-path: "fonts/fontawesome-free";
 //@import "bulma-prefers-dark/sass/elements/_all";
 //@import "bulma-prefers-dark/sass/components/_all";
 //@import "bulma-prefers-dark/sass/layout/_all";
+
 body, html{
 	min-height: 100vh;
 }

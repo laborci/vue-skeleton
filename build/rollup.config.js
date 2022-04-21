@@ -2,6 +2,7 @@ import Path from "path";
 import alias from "rollup-plugin-alias";
 import commonjs from "rollup-plugin-commonjs";
 import css from "rollup-plugin-css-only";
+import copy from "rollup-plugin-copy";
 import json from "rollup-plugin-json";
 import resolve from "rollup-plugin-node-resolve";
 import replace from "rollup-plugin-replace";
@@ -39,10 +40,15 @@ export default {
 			"__VUE_OPTIONS_API__": JSON.stringify(false),
 			"__VUE_PROD_DEVTOOLS__": JSON.stringify(!production),
 		}),
-		BuildNumber.bump(),
-		BuildNumber.replace(Path.resolve(cwd, "index.html")),
-		BuildNumber.write(Path.resolve(cwd, "dist/version"), null),
-		BuildNumber.touch(Path.resolve(cwd, "dist/build"), null),
+		copy({
+			targets: [
+				{src: Path.resolve(cwd, "src/index.html"), dest: Path.resolve(cwd, "dist")}
+			]
+		}),
+		// BuildNumber.bump(), // bumps build-number in package.json
+		BuildNumber.replace(Path.resolve(cwd, "dist/index.html")), // replaces build-number
+		BuildNumber.write(Path.resolve(cwd, "dist/version"), null), // writes build-number
+		BuildNumber.touch(Path.resolve(cwd, "dist/build"), null), // touches build file
 		production && fontCopy(Path.resolve(cwd, "dist/fonts")),
 		production && terser()
 	]
