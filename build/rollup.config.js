@@ -15,7 +15,6 @@ import BuildNumber from "./plugins/build-number";
 
 const production = !process.env.ROLLUP_WATCH;
 const cwd = process.cwd();
-const buildNumber = new BuildNumber();
 
 export default {
 	input: Path.resolve(cwd, "src/index.ts"),
@@ -26,19 +25,19 @@ export default {
 		format: "iife"
 	},
 	plugins: [
+		alias({entries: {}}),
 		vue({css: false, target: "browser", preprocessStyles: true, preprocessOptions: {sass: {}, scss: {}}}),
 		commonjs(),
+		typescript({check: false}),
 		json(),
 		scss(production ? {outputStyle: "compressed"} : {}),
-		alias({entries: {}}),
-		typescript({check: false}),
 		styles({mode: "emit", url: false}),
 		css({output: "index.css"}),
 		resolve({extensions: [".mjs", ".js", ".json", ".node", ".ts", ".vue"], browser: true}),
 		replace({"process.env.NODE_ENV": JSON.stringify("development")}),
-		buildNumber.bump(),
-		buildNumber.write(Path.resolve(cwd, "index.html")),
-		buildNumber.write(Path.resolve(cwd, "dist/version"), null),
+		BuildNumber.bump(),
+		BuildNumber.replace(Path.resolve(cwd, "index.html")),
+		BuildNumber.write(Path.resolve(cwd, "dist/version"), null),
 		production && fontCopy(Path.resolve(cwd, "dist/fonts")),
 		production && terser()
 	]
