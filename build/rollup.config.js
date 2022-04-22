@@ -7,7 +7,6 @@ import json from "rollup-plugin-json";
 import resolve from "rollup-plugin-node-resolve";
 import replace from "rollup-plugin-replace";
 import scss from "rollup-plugin-scss";
-import styles from "rollup-plugin-styles";
 import {terser} from "rollup-plugin-terser";
 import typescript from "rollup-plugin-typescript2";
 import vue from "rollup-plugin-vue";
@@ -32,7 +31,6 @@ export default {
 		typescript({check: false}),
 		json(),
 		scss({outputStyle: production ? "compressed" : null}),
-		styles({mode: "emit", url: false}),
 		css({output: "index.css"}),
 		resolve({extensions: [".mjs", ".js", ".json", ".node", ".ts", ".vue"], browser: true}),
 		replace({
@@ -45,10 +43,10 @@ export default {
 				{src: Path.resolve(cwd, "src/index.html"), dest: Path.resolve(cwd, "dist")}
 			]
 		}),
-		// BuildNumber.bump(), // bumps build-number in package.json
-		BuildNumber.replace(Path.resolve(cwd, "dist/index.html")), // replaces build-number
-		BuildNumber.write(Path.resolve(cwd, "dist/version"), null), // writes build-number
-		BuildNumber.touch(Path.resolve(cwd, "dist/build"), null), // touches build file
+		//BuildNumber.bump(),
+		BuildNumber.inject(Path.resolve(cwd, "dist/index.html")),
+		BuildNumber.write(Path.resolve(cwd, "dist/version"), null),
+		BuildNumber.touch(Path.resolve(cwd, "dist/build"), null),
 		production && fontCopy(Path.resolve(cwd, "dist/fonts")),
 		production && terser()
 	]

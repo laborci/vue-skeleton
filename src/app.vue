@@ -11,13 +11,16 @@ let control = MyComponent;
 </template>
 
 <style lang="scss">
+
+$fontDirectory: "fonts/";
+
 @use "@fontsource/baloo-da-2/scss/mixins" as BalooDa2;
 
-@include BalooDa2.fontFace($fontDir: "fonts/baloo-da-2", $weight: 400);
-@include BalooDa2.fontFace($fontDir: "fonts/baloo-da-2", $weight: 800);
+@include BalooDa2.fontFace($fontDir: $fontDirectory + "baloo-da-2", $weight: 400);
+@include BalooDa2.fontFace($fontDir: $fontDirectory + "baloo-da-2", $weight: 800);
 
 @import "@fortawesome/fontawesome-free/scss/variables";
-$fa-font-path: "fonts/fontawesome-free";
+$fa-font-path: $fontDirectory + "fontawesome-free";
 @import "@fortawesome/fontawesome-free/scss/brands";
 @import "@fortawesome/fontawesome-free/scss/solid";
 @import "@fortawesome/fontawesome-free/scss/fontawesome";
@@ -35,5 +38,6 @@ body, html{
 body{
 	padding: 30px;
 	background-color: #2b74b1;
+	color:green;
 }
 </style>
